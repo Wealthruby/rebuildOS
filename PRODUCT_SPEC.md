@@ -1,9 +1,12 @@
 Product Name
 RebuildOS
+
 One-Sentence Description
 RebuildOS is a free, private self-directed rebuilding system that helps users turn urges, relapses, and daily patterns into practical system adjustments.
+
 Brand
 Rebuild With Intention
+
 Brand Voice
 The product must sound:
 •	calm
@@ -22,6 +25,7 @@ Avoid:
 •	fear-based language
 •	explicit sexual descriptions
 •	over-polished SaaS language
+
 Preferred product language:
 •	“system adjustment”
 •	“high-risk window”
@@ -40,15 +44,19 @@ Avoid phrases like:
 •	“never relapse again”
 •	“destroy your urges”
 •	“become unstoppable”
+
 Primary User
 A person who feels stuck in PMO, digital dependency, survival mode, debt pressure, lack of discipline, or private destructive patterns.
 They may feel shame, but the tool should not deepen shame.
 They need structure, visibility, and a next action.
+
 Core Product Belief
 A relapse is not only a moral failure or identity collapse.
 It is often a system failure.
 The job is to identify the weak point and rebuild the system.
+
 Main Modules
+
 1. Daily Rebuild Check-In
 Purpose: Help the user measure the condition of the day before the day breaks them.
 Fields:
@@ -69,6 +77,7 @@ Output:
 •	minimum viable day reminder
 Example language:
 Today does not need to be perfect. It needs one clean action and one real boundary.
+
 2. Trigger Intelligence Log
 Purpose: Track urges and high-risk moments as data, not shame.
 Fields:
@@ -119,6 +128,7 @@ Output:
 •	top trigger emotion
 •	most common context
 •	best response action
+
 3. Urge Emergency Protocol
 Purpose: Give the user a step-by-step reset in a high-risk moment.
 Button label:
@@ -145,6 +155,7 @@ Replacement actions:
 •	do one closed-loop task
 Example language:
 You do not need to win your whole life right now. You need to move through the next 12 minutes without feeding the pattern.
+
 4. Relapse Autopsy
 Purpose: Help the user review a relapse without shame and extract a system adjustment.
 Fields:
@@ -163,6 +174,7 @@ Output:
 •	next clean action
 Example language:
 This does not erase the work. It reveals where the system needs reinforcement.
+
 5. Control Audit
 Purpose: Help the user identify what currently controls them and what they can reclaim.
 Fields:
@@ -177,6 +189,7 @@ Output:
 •	one control move for today
 Example language:
 Rebuilding starts by reclaiming one small area of control.
+
 6. Open-Close Loop Builder
 Purpose: Replace passive consumption with actions that have a beginning and end.
 Action categories:
@@ -202,6 +215,7 @@ Output:
 •	selected closed-loop action
 •	completion log
 •	identity pillar strengthened
+
 7. Identity Replacement Dashboard
 Purpose: Show the user whether they are building the life that makes the old pattern weaker.
 Pillars:
@@ -220,6 +234,7 @@ Output:
 •	strongest pillar
 •	weakest pillar
 •	recommended next pillar action
+
 8. Weekly Rebuild Review
 Purpose: Turn the week into insight.
 Fields:
@@ -238,6 +253,7 @@ Output:
 •	printable/exportable review
 Example language:
 The week does not need a performance review. It needs the truth and the next adjustment.
+
 9. Trigger Intelligence Dashboard
 Dashboard must show:
 •	most common trigger emotion
