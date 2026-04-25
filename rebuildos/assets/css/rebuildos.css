@@ -271,3 +271,80 @@
 		width: 100%;
 	}
 }
+
+/* UX System Sprint v1.1 interaction layer */
+.rebuildos-app .rebuildos-microstatus {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	margin: 8px 0 18px;
+}
+
+.rebuildos-app .rebuildos-microstatus__last {
+	margin: 0;
+	font-size: 13px;
+	color: var(--ros-muted);
+}
+
+.rebuildos-app .rebuildos-microstatus__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.rebuildos-app .rebuildos-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid var(--ros-border);
+	background: var(--ros-surface);
+	font-size: 12px;
+	color: var(--ros-muted);
+}
+
+.rebuildos-app .rebuildos-chip.is-complete {
+	background: var(--ros-soft);
+	color: var(--ros-accent-dark);
+	border-color: rgba(124, 74, 45, 0.3);
+}
+
+.rebuildos-app .rebuildos-disclosure__toggle {
+	background: transparent;
+	color: var(--ros-accent-dark);
+	border: 1px dashed rgba(124, 74, 45, 0.35);
+	padding: 8px 12px;
+	font-size: 13px;
+	box-shadow: none;
+	margin-bottom: 10px;
+}
+
+.rebuildos-app .rebuildos-disclosure__toggle:hover {
+	transform: none;
+	background: var(--ros-soft);
+	box-shadow: none;
+}
+
+.rebuildos-app .rebuildos-disclosure {
+	margin-bottom: 10px;
+}
+
+@media (max-width: 720px) {
+	.rebuildos-app .rebuildos-tabs {
+		position: sticky;
+		top: 0;
+		z-index: 12;
+		background: linear-gradient(180deg, var(--ros-bg), var(--ros-surface));
+		padding: 8px 0;
+	}
+
+	.rebuildos-app .rebuildos-microstatus {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}

@@ -38,6 +38,11 @@ $tabs = array(
 		</ul>
 	</nav>
 
+	<div class="rebuildos-microstatus" aria-live="polite">
+		<p class="rebuildos-microstatus__last" data-rebuildos-last-saved><?php echo esc_html__( 'Last saved: not yet', 'rebuildos' ); ?></p>
+		<ul class="rebuildos-microstatus__chips" data-rebuildos-completion-chips></ul>
+	</div>
+
 	<div class="rebuildos-panels">
 		<section class="rebuildos-panel is-active" data-rebuildos-panel="today" aria-live="polite">
 			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Daily Rebuild Check-In', 'rebuildos' ); ?></h3>
@@ -54,24 +59,29 @@ $tabs = array(
 						<label><?php echo esc_html__( 'Screen Risk', 'rebuildos' ); ?><input type="range" min="1" max="5" name="screenRisk" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
 					</div>
 				</div>
-				<div class="rebuildos-step-card">
-					<h4><?php echo esc_html__( '2) Set your protection for today', 'rebuildos' ); ?></h4>
-					<div class="rebuildos-grid">
-						<label><?php echo esc_html__( 'Highest Risk Window Today', 'rebuildos' ); ?>
-							<select name="riskWindow" data-rebuildos-risk-window required>
-								<option value="morning"><?php echo esc_html__( 'Morning', 'rebuildos' ); ?></option>
-								<option value="afternoon"><?php echo esc_html__( 'Afternoon', 'rebuildos' ); ?></option>
-								<option value="evening"><?php echo esc_html__( 'Evening', 'rebuildos' ); ?></option>
-								<option value="late night"><?php echo esc_html__( 'Late Night', 'rebuildos' ); ?></option>
-								<option value="custom"><?php echo esc_html__( 'Custom', 'rebuildos' ); ?></option>
-							</select>
-						</label>
-						<label class="rebuildos-hidden" data-rebuildos-custom-window-wrap><?php echo esc_html__( 'Custom Risk Window', 'rebuildos' ); ?><input type="text" name="customRiskWindow" data-rebuildos-custom-window placeholder="e.g., 8:30pm after work"></label>
-						<label><?php echo esc_html__( 'Today’s Boundary', 'rebuildos' ); ?><input type="text" name="boundary" required placeholder="e.g., phone out of room by 10:00 pm"></label>
-						<label><?php echo esc_html__( 'Minimum Viable Day Action', 'rebuildos' ); ?><input type="text" name="minimumAction" required placeholder="e.g., 10-minute walk before evening"></label>
-						<label><?php echo esc_html__( 'Notes (optional)', 'rebuildos' ); ?><textarea name="notes" rows="3" placeholder="Any pressure points or context for today"></textarea></label>
+					<div class="rebuildos-step-card">
+						<h4><?php echo esc_html__( '2) Set your protection for today', 'rebuildos' ); ?></h4>
+						<div class="rebuildos-grid">
+							<label><?php echo esc_html__( 'Highest Risk Window Today', 'rebuildos' ); ?>
+								<select name="riskWindow" data-rebuildos-risk-window required>
+									<option value="morning"><?php echo esc_html__( 'Morning', 'rebuildos' ); ?></option>
+									<option value="afternoon"><?php echo esc_html__( 'Afternoon', 'rebuildos' ); ?></option>
+									<option value="evening"><?php echo esc_html__( 'Evening', 'rebuildos' ); ?></option>
+									<option value="late night"><?php echo esc_html__( 'Late Night', 'rebuildos' ); ?></option>
+									<option value="custom"><?php echo esc_html__( 'Custom', 'rebuildos' ); ?></option>
+								</select>
+							</label>
+							<label class="rebuildos-hidden" data-rebuildos-custom-window-wrap><?php echo esc_html__( 'Custom Risk Window', 'rebuildos' ); ?><input type="text" name="customRiskWindow" data-rebuildos-custom-window placeholder="e.g., 8:30pm after work"></label>
+							<label><?php echo esc_html__( 'Today’s Boundary', 'rebuildos' ); ?><input type="text" name="boundary" required placeholder="e.g., phone out of room by 10:00 pm"></label>
+							<label><?php echo esc_html__( 'Minimum Viable Day Action', 'rebuildos' ); ?><input type="text" name="minimumAction" required placeholder="e.g., 10-minute walk before evening"></label>
+						</div>
+						<button type="button" class="rebuildos-disclosure__toggle" data-rebuildos-disclosure-toggle="today-optional"><?php echo esc_html__( 'Add optional notes', 'rebuildos' ); ?></button>
+						<div class="rebuildos-disclosure" data-rebuildos-disclosure="today-optional" hidden>
+							<div class="rebuildos-grid">
+								<label><?php echo esc_html__( 'Notes (optional)', 'rebuildos' ); ?><textarea name="notes" rows="3" placeholder="Any pressure points or context for today"></textarea></label>
+							</div>
+						</div>
 					</div>
-				</div>
 				<button type="submit" class="rebuildos-btn"><?php echo esc_html__( 'Save Today Check-In', 'rebuildos' ); ?></button>
 			</form>
 			<div class="rebuildos-card" data-rebuildos-today-result></div>
@@ -80,9 +90,9 @@ $tabs = array(
 		<section class="rebuildos-panel" data-rebuildos-panel="urge-log" hidden>
 			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Urge Log', 'rebuildos' ); ?></h3>
 			<p class="rebuildos-panel__text"><?php echo esc_html__( 'Log the moment as data, not shame.', 'rebuildos' ); ?></p>
-			<form class="rebuildos-form" data-rebuildos-form="urge">
-				<div class="rebuildos-grid">
-					<label><?php echo esc_html__( 'Urge Intensity (1-10)', 'rebuildos' ); ?><input type="range" min="1" max="10" name="intensity" value="5" required></label>
+				<form class="rebuildos-form" data-rebuildos-form="urge">
+					<div class="rebuildos-grid">
+						<label><?php echo esc_html__( 'Urge Intensity (1-10)', 'rebuildos' ); ?><input type="range" min="1" max="10" name="intensity" value="5" required></label>
 					<label><?php echo esc_html__( 'Trigger Emotion', 'rebuildos' ); ?>
 						<select name="emotion" required>
 							<option value="boredom">Boredom</option><option value="loneliness">Loneliness</option><option value="stress">Stress</option><option value="anger">Anger</option><option value="sadness">Sadness</option><option value="anxiety">Anxiety</option><option value="tiredness">Tiredness</option><option value="rejection">Rejection</option><option value="pressure">Pressure</option><option value="numbness">Numbness</option><option value="other">Other</option>
@@ -93,22 +103,27 @@ $tabs = array(
 							<option value="alone in room">Alone in room</option><option value="late night">Late night</option><option value="after scrolling">After scrolling</option><option value="after work">After work</option><option value="after argument">After argument</option><option value="after failure">After failure</option><option value="after boredom">After boredom</option><option value="after stress">After stress</option><option value="after triggering content">After triggering content</option><option value="other">Other</option>
 						</select>
 					</label>
-					<label><?php echo esc_html__( 'Device', 'rebuildos' ); ?>
-						<select name="device" required><option value="phone">Phone</option><option value="laptop">Laptop</option><option value="desktop">Desktop</option><option value="tablet">Tablet</option><option value="TV">TV</option><option value="other">Other</option></select>
-					</label>
-					<label><?php echo esc_html__( 'Location', 'rebuildos' ); ?><input type="text" name="location" required></label>
-					<label><?php echo esc_html__( 'App/Site Before Urge', 'rebuildos' ); ?><input type="text" name="appBeforeUrge"></label>
-					<label><?php echo esc_html__( 'First Small Compromise', 'rebuildos' ); ?><input type="text" name="firstCompromise"></label>
-					<label><?php echo esc_html__( 'Response Action', 'rebuildos' ); ?>
+						<label><?php echo esc_html__( 'Device', 'rebuildos' ); ?>
+							<select name="device" required><option value="phone">Phone</option><option value="laptop">Laptop</option><option value="desktop">Desktop</option><option value="tablet">Tablet</option><option value="TV">TV</option><option value="other">Other</option></select>
+						</label>
+						<label><?php echo esc_html__( 'Location', 'rebuildos' ); ?><input type="text" name="location" required></label>
+						<label><?php echo esc_html__( 'Response Action', 'rebuildos' ); ?>
 						<select name="responseAction" required>
 							<option value="left room">Left room</option><option value="cold water">Cold water</option><option value="walk">Walk</option><option value="body movement">Body movement</option><option value="wrote one sentence">Wrote one sentence</option><option value="messaged someone">Messaged someone</option><option value="cleaned one surface">Cleaned one surface</option><option value="read one page">Read one page</option><option value="other">Other</option>
 						</select>
 					</label>
-					<label><?php echo esc_html__( 'Outcome', 'rebuildos' ); ?>
-						<select name="outcome" required><option value="survived">Survived</option><option value="relapsed">Relapsed</option><option value="unresolved">Unresolved</option></select>
-					</label>
-					<label><?php echo esc_html__( 'Notes', 'rebuildos' ); ?><textarea name="notes" rows="3"></textarea></label>
-				</div>
+						<label><?php echo esc_html__( 'Outcome', 'rebuildos' ); ?>
+							<select name="outcome" required><option value="survived">Survived</option><option value="relapsed">Relapsed</option><option value="unresolved">Unresolved</option></select>
+						</label>
+					</div>
+					<button type="button" class="rebuildos-disclosure__toggle" data-rebuildos-disclosure-toggle="urge-optional"><?php echo esc_html__( 'Add context details (optional)', 'rebuildos' ); ?></button>
+					<div class="rebuildos-disclosure" data-rebuildos-disclosure="urge-optional" hidden>
+						<div class="rebuildos-grid">
+							<label><?php echo esc_html__( 'App/Site Before Urge', 'rebuildos' ); ?><input type="text" name="appBeforeUrge"></label>
+							<label><?php echo esc_html__( 'First Small Compromise', 'rebuildos' ); ?><input type="text" name="firstCompromise"></label>
+							<label><?php echo esc_html__( 'Notes', 'rebuildos' ); ?><textarea name="notes" rows="3"></textarea></label>
+						</div>
+					</div>
 				<button type="submit" class="rebuildos-btn"><?php echo esc_html__( 'Save Urge Event', 'rebuildos' ); ?></button>
 			</form>
 			<div class="rebuildos-card" data-rebuildos-urge-result></div>

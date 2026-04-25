@@ -94,6 +94,8 @@
 		var dashboardCards = app.querySelector('[data-rebuildos-dashboard-cards]');
 		var dashboardEmpty = app.querySelector('[data-rebuildos-dashboard-empty]');
 		var exportSummary = app.querySelector('[data-rebuildos-export-summary]');
+		var completionChips = app.querySelector('[data-rebuildos-completion-chips]');
+		var lastSavedNode = app.querySelector('[data-rebuildos-last-saved]');
 		var timerDisplay = app.querySelector('[data-rebuildos-timer]');
 		var timerInterval = null;
 
@@ -257,6 +259,42 @@
 			});
 		}
 
+
+		function renderMicroStatus() {
+			if (completionChips) {
+				completionChips.innerHTML = '';
+				[
+					['Today', data.dailyCheckins.length],
+					['Urge Log', data.urgeLogs.length],
+					['Autopsy', data.relapseAutopsies.length],
+					['Control Audit', data.controlAudits.length],
+					['Weekly', data.weeklyReviews.length]
+				].forEach(function (chip) {
+					var li = document.createElement('li');
+					li.className = 'rebuildos-chip';
+					li.textContent = chip[0] + ': ' + chip[1];
+					if (chip[1] > 0) {
+						li.classList.add('is-complete');
+					}
+					completionChips.appendChild(li);
+				});
+			}
+
+			if (lastSavedNode) {
+				var latest = null;
+				Object.keys(data).forEach(function (bucket) {
+					if (!Array.isArray(data[bucket]) || !data[bucket][0] || !data[bucket][0].timestamp) {
+						return;
+					}
+					var ts = new Date(data[bucket][0].timestamp);
+					if (!latest || ts > latest) {
+						latest = ts;
+					}
+				});
+				lastSavedNode.textContent = latest ? 'Last saved: ' + latest.toLocaleString() : 'Last saved: not yet';
+			}
+		}
+
 		function renderAll() {
 			renderToday();
 			renderUrge();
@@ -265,6 +303,7 @@
 			renderWeekly();
 			renderDashboard();
 			renderExportSummary();
+			renderMicroStatus();
 		}
 
 		tabs.forEach(function (button) {
@@ -277,6 +316,19 @@
 					panel.hidden = !active;
 					panel.classList.toggle('is-active', active);
 				});
+			});
+		});
+
+		app.querySelectorAll('[data-rebuildos-disclosure-toggle]').forEach(function (toggle) {
+			toggle.addEventListener('click', function () {
+				var target = toggle.getAttribute('data-rebuildos-disclosure-toggle');
+				var panel = app.querySelector('[data-rebuildos-disclosure="' + target + '"]');
+				if (!panel) {
+					return;
+				}
+				var willShow = panel.hidden;
+				panel.hidden = !willShow;
+				toggle.textContent = willShow ? 'Hide optional details' : (target === 'today-optional' ? 'Add optional notes' : 'Add context details (optional)');
 			});
 		});
 
