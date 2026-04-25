@@ -169,7 +169,7 @@
 				autopsyResult.innerHTML = '<p class="rebuildos-panel__text">No autopsy entries yet.</p>';
 				return;
 			}
-			autopsyResult.innerHTML = '<h4>Latest Review</h4><p>Likely system weak point: ' + latest.boundaryFailed + '</p><p>System adjustment: ' + latest.systemChange + '</p><p>Next clean action: ' + latest.nextCleanAction + '</p>';
+			autopsyResult.innerHTML = '<h4>Latest Review</h4><p><strong>Likely system weak point:</strong> ' + latest.likelyWeakPoint + '</p><p><strong>One system adjustment:</strong> ' + latest.systemAdjustment + '</p><p><strong>Next clean action:</strong> ' + latest.nextCleanAction + '</p>';
 		}
 
 		function renderControl() {
@@ -433,11 +433,25 @@
 			autopsyForm.addEventListener('submit', function (event) {
 				event.preventDefault();
 				var values = getFormValues(autopsyForm);
-				data.relapseAutopsies.unshift(makeRecord(values));
+				var likelyWeakPoint = values.boundaryFailed || values.firstCompromise;
+				var systemAdjustment = values.systemChange || ('Reinforce boundary around: ' + likelyWeakPoint);
+
+				data.relapseAutopsies.unshift(makeRecord({
+					whatHappened: values.whatHappened,
+					firstCompromise: values.firstCompromise,
+					boundaryFailed: values.boundaryFailed,
+					emotionAvoided: values.emotionAvoided,
+					lieBelieved: values.lieBelieved,
+					replacementNeeded: values.replacementNeeded,
+					systemChange: values.systemChange,
+					nextCleanAction: values.nextCleanAction,
+					likelyWeakPoint: likelyWeakPoint,
+					systemAdjustment: systemAdjustment
+				}));
 				saveData(data);
 				renderAll();
 				autopsyForm.reset();
-				setFeedback('Relapse autopsy saved with a system-adjustment focus.');
+				setFeedback('Relapse autopsy saved. This is pattern work, not self-judgment.');
 			});
 		}
 

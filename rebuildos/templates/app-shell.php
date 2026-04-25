@@ -147,10 +147,11 @@ $tabs = array(
 
 		<section class="rebuildos-panel" data-rebuildos-panel="relapse-autopsy" hidden>
 			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Relapse Autopsy', 'rebuildos' ); ?></h3>
+			<p class="rebuildos-panel__text"><?php echo esc_html__( 'This is a system review, not a shame review. Capture the pattern, then choose one adjustment for today.', 'rebuildos' ); ?></p>
 			<form class="rebuildos-form" data-rebuildos-form="autopsy">
 				<div class="rebuildos-grid">
-					<label><?php echo esc_html__( 'What happened?', 'rebuildos' ); ?><textarea name="whatHappened" rows="2" required></textarea></label>
-					<label><?php echo esc_html__( 'First small compromise', 'rebuildos' ); ?><input type="text" name="firstCompromise" required></label>
+					<label><?php echo esc_html__( 'What happened?', 'rebuildos' ); ?><textarea name="whatHappened" rows="2" required placeholder="Short factual summary"></textarea></label>
+					<label><?php echo esc_html__( 'First small compromise', 'rebuildos' ); ?><input type="text" name="firstCompromise" required placeholder="What opened the loop first?"></label>
 					<label><?php echo esc_html__( 'Boundary that failed', 'rebuildos' ); ?><input type="text" name="boundaryFailed" required></label>
 					<label><?php echo esc_html__( 'Emotion avoided', 'rebuildos' ); ?><input type="text" name="emotionAvoided" required></label>
 					<label><?php echo esc_html__( 'Lie believed', 'rebuildos' ); ?><input type="text" name="lieBelieved" required></label>
