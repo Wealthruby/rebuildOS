@@ -133,64 +133,24 @@ Output:
 Purpose: Give the user a step-by-step reset in a high-risk moment.
 Button label:
 I’m at risk
-Flow:
-1.	Step away from the device.
-2.	Name the urge.
-3.	Rate intensity.
-4.	Identify the lie.
-5.	Choose one replacement action.
-6.	Start a 12-minute timer.
-7.	Log outcome.
-Replacement actions:
-•	leave the room
-•	cold water
-•	short walk
-•	push-ups or body movement
-•	write one honest sentence
-•	message a trusted person
-•	clean one surface
-•	read one page
-•	make tea or water
-•	sit outside
-•	do one closed-loop task
+Flow: 1.	Step away from the device. 2.	Name the urge. 3.	Rate intensity. 4.	Identify the lie. 5.	Choose one replacement action. 6.	Start a 12-minute timer. 7.	Log outcome.
+Replacement actions: •	leave the room •	cold water •	short walk •	push-ups or body movement •	write one honest sentence •	message a trusted person •	clean one surface •	read one page •	make tea or water •	sit outside •	do one closed-loop task
 Example language:
 You do not need to win your whole life right now. You need to move through the next 12 minutes without feeding the pattern.
 
 4. Relapse Autopsy
 Purpose: Help the user review a relapse without shame and extract a system adjustment.
-Fields:
-•	date and time
-•	what happened
-•	first small compromise
-•	boundary that failed
-•	emotion avoided
-•	lie believed
-•	replacement needed
-•	system change for today
-•	next clean action
-Output:
-•	likely weak point
-•	recommended system adjustment
-•	next clean action
-Example language:
-This does not erase the work. It reveals where the system needs reinforcement.
+Fields: •	date and time •	what happened •	first small compromise •	boundary that failed •	emotion avoided •	lie believed •	replacement needed •	system change for today •	next clean action.
+Output: •	likely weak point •	recommended system adjustment •	next clean action
+Example language: This does not erase the work. It reveals where the system needs reinforcement.
 
-5. Control Audit
+6. Control Audit
 Purpose: Help the user identify what currently controls them and what they can reclaim.
-Fields:
-•	what feels out of control right now?
-•	what app, habit, place, person, or feeling has too much power?
-•	what is one controllable action within reach?
-•	what boundary can be set today?
-•	what closed-loop task can be completed today?
-Output:
-•	control score
-•	top dependency
-•	one control move for today
-Example language:
-Rebuilding starts by reclaiming one small area of control.
+Fields: •	what feels out of control right now? •	what app, habit, place, person, or feeling has too much power? •	what is one controllable action within reach? •	what boundary can be set today? •	what closed-loop task can be completed today?
+Output: •	control score •	top dependency •	one control move for today
+Example language: Rebuilding starts by reclaiming one small area of control.
 
-6. Open-Close Loop Builder
+7. Open-Close Loop Builder
 Purpose: Replace passive consumption with actions that have a beginning and end.
 Action categories:
 •	body
@@ -216,7 +176,7 @@ Output:
 •	completion log
 •	identity pillar strengthened
 
-7. Identity Replacement Dashboard
+8. Identity Replacement Dashboard
 Purpose: Show the user whether they are building the life that makes the old pattern weaker.
 Pillars:
 •	Body
@@ -235,7 +195,7 @@ Output:
 •	weakest pillar
 •	recommended next pillar action
 
-8. Weekly Rebuild Review
+9. Weekly Rebuild Review
 Purpose: Turn the week into insight.
 Fields:
 •	week start
@@ -254,7 +214,7 @@ Output:
 Example language:
 The week does not need a performance review. It needs the truth and the next adjustment.
 
-9. Trigger Intelligence Dashboard
+10. Trigger Intelligence Dashboard
 Dashboard must show:
 •	most common trigger emotion
 •	most common high-risk time window
