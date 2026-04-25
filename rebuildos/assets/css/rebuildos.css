@@ -1,0 +1,363 @@
+/* RebuildOS scoped reset + design foundation.
+ * All rules intentionally scoped under .rebuildos-app to avoid affecting the WP theme/site.
+ */
+.rebuildos-app,
+.rebuildos-app * {
+	box-sizing: border-box;
+}
+
+.rebuildos-app {
+	--ros-bg: #f7f3ec;
+	--ros-surface: #fffaf3;
+	--ros-surface-strong: #ffffff;
+	--ros-text: #1f2933;
+	--ros-muted: #667085;
+	--ros-border: rgba(31, 41, 51, 0.12);
+	--ros-accent: #7c4a2d;
+	--ros-accent-dark: #5f3822;
+	--ros-soft: #efe6da;
+	--ros-danger-soft: #f7e1dc;
+	--ros-radius: 18px;
+	--ros-shadow: 0 18px 45px rgba(31, 41, 51, 0.08);
+
+	font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	color: var(--ros-text);
+	background: linear-gradient(180deg, var(--ros-bg), #ffffff);
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 32px;
+	border-radius: 24px;
+	line-height: 1.5;
+	border: 1px solid var(--ros-border);
+}
+
+.rebuildos-app h1,
+.rebuildos-app h2,
+.rebuildos-app h3,
+.rebuildos-app h4,
+.rebuildos-app p,
+.rebuildos-app label,
+.rebuildos-app button,
+.rebuildos-app input,
+.rebuildos-app select,
+.rebuildos-app textarea {
+	font-family: inherit;
+	letter-spacing: normal;
+	text-transform: none;
+}
+
+.rebuildos-app h1,
+.rebuildos-app h2,
+.rebuildos-app h3,
+.rebuildos-app h4,
+.rebuildos-app p {
+	margin-top: 0;
+}
+
+.rebuildos-app button,
+.rebuildos-app input,
+.rebuildos-app select,
+.rebuildos-app textarea {
+	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 14px;
+	font-size: 15px;
+	line-height: 1.4;
+}
+
+.rebuildos-app input,
+.rebuildos-app select,
+.rebuildos-app textarea {
+	width: 100%;
+	border: 1px solid var(--ros-border);
+	background: var(--ros-surface-strong);
+	color: var(--ros-text);
+	padding: 12px 14px;
+	outline: none;
+	box-shadow: none;
+}
+
+.rebuildos-app textarea {
+	min-height: 110px;
+	resize: vertical;
+}
+
+.rebuildos-app input:focus,
+.rebuildos-app select:focus,
+.rebuildos-app textarea:focus {
+	border-color: var(--ros-accent);
+	box-shadow: 0 0 0 4px rgba(124, 74, 45, 0.12);
+}
+
+.rebuildos-app button,
+.rebuildos-app .rebuildos-btn,
+.rebuildos-app .rebuildos-tabs__button {
+	border: 0;
+	background: var(--ros-accent);
+	color: #ffffff;
+	padding: 12px 16px;
+	font-weight: 650;
+	cursor: pointer;
+	transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.rebuildos-app button:hover,
+.rebuildos-app .rebuildos-btn:hover,
+.rebuildos-app .rebuildos-tabs__button:hover {
+	background: var(--ros-accent-dark);
+	transform: translateY(-1px);
+	box-shadow: 0 10px 24px rgba(124, 74, 45, 0.18);
+}
+
+.rebuildos-app button.secondary,
+.rebuildos-app .rebuildos-btn--secondary {
+	background: var(--ros-soft);
+	color: var(--ros-text);
+	border: 1px solid var(--ros-border);
+}
+
+.rebuildos-app .rebuildos-btn--danger {
+	background: var(--ros-danger-soft);
+	color: #8b2a1a;
+	border: 1px solid rgba(139, 42, 26, 0.2);
+}
+
+.rebuildos-app .rebuildos-card,
+.rebuildos-app .rebuildos-panel,
+.rebuildos-app .rebuildos-step-card,
+.rebuildos-app .rebuildos-empty {
+	background: var(--ros-surface-strong);
+	border: 1px solid var(--ros-border);
+	border-radius: var(--ros-radius);
+	padding: 22px;
+	box-shadow: var(--ros-shadow);
+}
+
+.rebuildos-app .rebuildos-panel {
+	margin-bottom: 18px;
+}
+
+.rebuildos-app .rebuildos-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 24px 0;
+}
+
+.rebuildos-app .rebuildos-tabs__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.rebuildos-app .rebuildos-tabs__button,
+.rebuildos-app .rebuildos-tab {
+	background: var(--ros-surface);
+	color: var(--ros-text);
+	border: 1px solid var(--ros-border);
+	border-radius: 999px;
+	padding: 10px 14px;
+	box-shadow: none;
+}
+
+.rebuildos-app .rebuildos-tabs__button.is-active,
+.rebuildos-app .rebuildos-tab.is-active {
+	background: var(--ros-accent);
+	color: #ffffff;
+	border-color: var(--ros-accent);
+}
+
+.rebuildos-app .rebuildos-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.rebuildos-app .rebuildos-grid--metrics {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rebuildos-app .rebuildos-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.rebuildos-app .rebuildos-actions input[type='file'] {
+	position: absolute;
+	left: -9999px;
+	opacity: 0;
+}
+
+.rebuildos-app .rebuildos-range-value {
+	display: inline-flex;
+	padding: 4px 10px;
+	border-radius: 999px;
+	background: var(--ros-soft);
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--ros-accent-dark);
+}
+
+.rebuildos-app .rebuildos-feedback {
+	margin: 6px 0 16px;
+	font-size: 14px;
+	color: var(--ros-muted);
+}
+
+.rebuildos-app .rebuildos-feedback[data-tone='success'] {
+	color: #245f3e;
+}
+
+.rebuildos-app .rebuildos-feedback[data-tone='warn'] {
+	color: #7c5a00;
+}
+
+.rebuildos-app .rebuildos-feedback[data-tone='error'] {
+	color: #8b2a1a;
+}
+
+.rebuildos-app .rebuildos-panel__text,
+.rebuildos-app .rebuildos-app__subtitle,
+.rebuildos-app .rebuildos-app__privacy-note,
+.rebuildos-app .rebuildos-app__disclaimer,
+.rebuildos-app .rebuildos-steps,
+.rebuildos-app .rebuildos-empty {
+	color: var(--ros-muted);
+}
+
+.rebuildos-app .rebuildos-hidden {
+	display: none !important;
+}
+
+@media (max-width: 960px) {
+	.rebuildos-app .rebuildos-grid--metrics {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 720px) {
+	.rebuildos-app {
+		padding: 18px;
+		border-radius: 18px;
+	}
+
+	.rebuildos-app .rebuildos-grid,
+	.rebuildos-app .rebuildos-grid--metrics {
+		grid-template-columns: 1fr;
+	}
+
+	.rebuildos-app .rebuildos-tabs {
+		overflow-x: auto;
+		flex-wrap: nowrap;
+		padding-bottom: 6px;
+	}
+
+	.rebuildos-app .rebuildos-tabs__list {
+		flex-wrap: nowrap;
+	}
+
+	.rebuildos-app .rebuildos-tabs__button,
+	.rebuildos-app .rebuildos-tab {
+		white-space: nowrap;
+	}
+
+	.rebuildos-app .rebuildos-btn {
+		width: 100%;
+	}
+}
+
+/* UX System Sprint v1.1 interaction layer */
+.rebuildos-app .rebuildos-microstatus {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	margin: 8px 0 18px;
+}
+
+.rebuildos-app .rebuildos-microstatus__last {
+	margin: 0;
+	font-size: 13px;
+	color: var(--ros-muted);
+}
+
+.rebuildos-app .rebuildos-microstatus__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.rebuildos-app .rebuildos-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid var(--ros-border);
+	background: var(--ros-surface);
+	font-size: 12px;
+	color: var(--ros-muted);
+}
+
+.rebuildos-app .rebuildos-chip.is-complete {
+	background: var(--ros-soft);
+	color: var(--ros-accent-dark);
+	border-color: rgba(124, 74, 45, 0.3);
+}
+
+.rebuildos-app .rebuildos-disclosure__toggle {
+	background: transparent;
+	color: var(--ros-accent-dark);
+	border: 1px dashed rgba(124, 74, 45, 0.35);
+	padding: 8px 12px;
+	font-size: 13px;
+	box-shadow: none;
+	margin-bottom: 10px;
+}
+
+.rebuildos-app .rebuildos-disclosure__toggle:hover {
+	transform: none;
+	background: var(--ros-soft);
+	box-shadow: none;
+}
+
+.rebuildos-app .rebuildos-disclosure {
+	margin-bottom: 10px;
+}
+
+@media (max-width: 720px) {
+	.rebuildos-app .rebuildos-tabs {
+		position: sticky;
+		top: 0;
+		z-index: 12;
+		background: linear-gradient(180deg, var(--ros-bg), var(--ros-surface));
+		padding: 8px 0;
+	}
+
+	.rebuildos-app .rebuildos-microstatus {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+/* Accent presets from admin settings */
+.rebuildos-app.rebuildos-accent--calm {
+	--ros-accent: #2f6b73;
+	--ros-accent-dark: #25535a;
+	--ros-soft: #dfeff1;
+}
+
+.rebuildos-app.rebuildos-accent--stone {
+	--ros-accent: #4b5563;
+	--ros-accent-dark: #374151;
+	--ros-soft: #e5e7eb;
+}
