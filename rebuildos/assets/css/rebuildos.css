@@ -348,3 +348,16 @@
 		align-items: flex-start;
 	}
 }
+
+/* Accent presets from admin settings */
+.rebuildos-app.rebuildos-accent--calm {
+	--ros-accent: #2f6b73;
+	--ros-accent-dark: #25535a;
+	--ros-soft: #dfeff1;
+}
+
+.rebuildos-app.rebuildos-accent--stone {
+	--ros-accent: #4b5563;
+	--ros-accent-dark: #374151;
+	--ros-soft: #e5e7eb;
+}

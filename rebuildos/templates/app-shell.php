@@ -9,6 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
+$settings = RebuildOS_Admin::get_settings();
+
+$guest_mode_enabled = ! empty( $settings['guest_mode'] );
+$export_enabled     = ! empty( $settings['export_enabled'] );
+$show_disclaimer    = ! empty( $settings['show_disclaimer'] );
+$disclaimer_text    = isset( $settings['disclaimer_text'] ) ? (string) $settings['disclaimer_text'] : RebuildOS_Admin::DEFAULT_DISCLAIMER;
+$accent_style       = isset( $settings['accent_style'] ) ? sanitize_html_class( (string) $settings['accent_style'] ) : 'warm';
+
 $tabs = array(
 	'today'            => __( 'Today', 'rebuildos' ),
 	'urge-log'         => __( 'Urge Log', 'rebuildos' ),
@@ -19,8 +28,12 @@ $tabs = array(
 	'weekly-review'    => __( 'Weekly Review', 'rebuildos' ),
 	'export'           => __( 'Export', 'rebuildos' ),
 );
+
+if ( ! $export_enabled ) {
+	unset( $tabs['export'] );
+}
 ?>
-<div class="rebuildos-app" data-rebuildos-app="1">
+<div class="rebuildos-app rebuildos-accent--<?php echo esc_attr( $accent_style ); ?>" data-rebuildos-app="1">
 	<header class="rebuildos-app__header">
 		<p class="rebuildos-app__eyebrow"><?php echo esc_html__( 'RebuildOS', 'rebuildos' ); ?></p>
 		<h2 class="rebuildos-app__title"><?php echo esc_html__( 'Private Rebuild Dashboard', 'rebuildos' ); ?></h2>
@@ -28,6 +41,14 @@ $tabs = array(
 		<p class="rebuildos-app__privacy-note"><?php echo esc_html__( 'Guest data is stored only in this browser unless you export it.', 'rebuildos' ); ?></p>
 	</header>
 
+	<?php if ( ! $guest_mode_enabled ) : ?>
+		<section class="rebuildos-panel">
+			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Guest Mode Disabled', 'rebuildos' ); ?></h3>
+			<p class="rebuildos-panel__text"><?php echo esc_html__( 'Guest local browser mode is currently disabled in RebuildOS settings. Enable it under Settings > RebuildOS to use this tool.', 'rebuildos' ); ?></p>
+		</section>
+	<?php endif; ?>
+
+	<?php if ( $guest_mode_enabled ) : ?>
 	<nav class="rebuildos-tabs" aria-label="<?php echo esc_attr__( 'RebuildOS Sections', 'rebuildos' ); ?>">
 		<ul class="rebuildos-tabs__list">
 			<?php foreach ( $tabs as $tab_slug => $tab_label ) : ?>
@@ -218,6 +239,7 @@ $tabs = array(
 			<div class="rebuildos-card" data-rebuildos-weekly-result></div>
 		</section>
 
+		<?php if ( $export_enabled ) : ?>
 		<section class="rebuildos-panel" data-rebuildos-panel="export" hidden>
 			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Export & Privacy Controls', 'rebuildos' ); ?></h3>
 			<p class="rebuildos-panel__text"><?php echo esc_html__( 'Guest data is stored only in this browser unless you export it.', 'rebuildos' ); ?></p>
@@ -230,11 +252,16 @@ $tabs = array(
 			</div>
 			<div class="rebuildos-cards" data-rebuildos-export-summary></div>
 		</section>
+		<?php endif; ?>
 	</div>
 
 	<p class="rebuildos-feedback" data-rebuildos-feedback aria-live="polite"></p>
 
+	<?php endif; ?>
+
 	<footer class="rebuildos-app__footer">
-		<p class="rebuildos-app__disclaimer"><?php echo esc_html__( 'RebuildOS is a self-directed reflection and rebuilding tool. It is not therapy, medical advice, diagnosis, or crisis support. If you feel unable to control your behavior, feel unsafe, or are in severe distress, consider reaching out to a qualified professional, a trusted support person, or local emergency/crisis support.', 'rebuildos' ); ?></p>
+		<?php if ( $show_disclaimer ) : ?>
+			<p class="rebuildos-app__disclaimer"><?php echo esc_html( $disclaimer_text ); ?></p>
+		<?php endif; ?>
 	</footer>
 </div>
