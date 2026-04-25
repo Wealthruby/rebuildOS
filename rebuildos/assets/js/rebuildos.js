@@ -97,9 +97,10 @@
 		var timerDisplay = app.querySelector('[data-rebuildos-timer]');
 		var timerInterval = null;
 
-		function setFeedback(message) {
+		function setFeedback(message, tone) {
 			if (feedback) {
 				feedback.textContent = message;
+				feedback.setAttribute('data-tone', tone || 'success');
 			}
 		}
 
@@ -380,7 +381,7 @@
 		var resetStart = app.querySelector('[data-rebuildos-reset-start]');
 		if (resetStart) {
 			resetStart.addEventListener('click', function () {
-				setFeedback('Reset started. Stay with the next 12 minutes.');
+				setFeedback('Reset started. Stay with the next 12 minutes.', 'warn');
 			});
 		}
 
@@ -397,7 +398,7 @@
 					if (remaining < 0) {
 						clearInterval(timerInterval);
 						timerDisplay.textContent = '00:00';
-						setFeedback('12-minute reset complete. Log your outcome.');
+						setFeedback('12-minute reset complete. Log your outcome.', 'warn');
 					}
 				}, 1000);
 			});
@@ -532,7 +533,7 @@
 					try {
 						var imported = normalizeData(JSON.parse(loadEvent.target.result));
 						if (!window.confirm('Import will replace current local data. Continue?')) {
-							setFeedback('Import cancelled.');
+							setFeedback('Import cancelled.', 'warn');
 							importInput.value = '';
 							return;
 						}
@@ -541,7 +542,7 @@
 						renderAll();
 						setFeedback('Import complete.');
 					} catch (error) {
-						setFeedback('Import failed. Please use a valid RebuildOS JSON file.');
+						setFeedback('Import failed. Please use a valid RebuildOS JSON file.', 'error');
 					}
 					importInput.value = '';
 				};
@@ -553,7 +554,7 @@
 		if (clearButton) {
 			clearButton.addEventListener('click', function () {
 				if (!window.confirm('Clear all local RebuildOS guest data from this browser?')) {
-					setFeedback('Clear cancelled.');
+					setFeedback('Clear cancelled.', 'warn');
 					return;
 				}
 				data = cloneEmptyData();
