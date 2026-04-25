@@ -41,29 +41,36 @@ $tabs = array(
 	<div class="rebuildos-panels">
 		<section class="rebuildos-panel is-active" data-rebuildos-panel="today" aria-live="polite">
 			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Daily Rebuild Check-In', 'rebuildos' ); ?></h3>
-			<p class="rebuildos-panel__text"><?php echo esc_html__( 'Today does not need to be perfect. It needs one clean action and one real boundary.', 'rebuildos' ); ?></p>
+			<p class="rebuildos-panel__text"><?php echo esc_html__( 'Quick daily check-in: rate your current load, set one boundary, and choose one minimum action.', 'rebuildos' ); ?></p>
 			<form class="rebuildos-form" data-rebuildos-form="today">
-				<div class="rebuildos-grid rebuildos-grid--metrics">
-					<label><?php echo esc_html__( 'Sleep Quality (1-5)', 'rebuildos' ); ?><input type="range" min="1" max="5" name="sleepQuality" value="3" required></label>
-					<label><?php echo esc_html__( 'Stress Level (1-5)', 'rebuildos' ); ?><input type="range" min="1" max="5" name="stressLevel" value="3" required></label>
-					<label><?php echo esc_html__( 'Loneliness Level (1-5)', 'rebuildos' ); ?><input type="range" min="1" max="5" name="lonelinessLevel" value="3" required></label>
-					<label><?php echo esc_html__( 'Boredom Level (1-5)', 'rebuildos' ); ?><input type="range" min="1" max="5" name="boredomLevel" value="3" required></label>
-					<label><?php echo esc_html__( 'Energy Level (1-5)', 'rebuildos' ); ?><input type="range" min="1" max="5" name="energyLevel" value="3" required></label>
-					<label><?php echo esc_html__( 'Screen Risk (1-5)', 'rebuildos' ); ?><input type="range" min="1" max="5" name="screenRisk" value="3" required></label>
+				<div class="rebuildos-step-card">
+					<h4><?php echo esc_html__( '1) Rate today’s signals (1 low, 5 high)', 'rebuildos' ); ?></h4>
+					<div class="rebuildos-grid rebuildos-grid--metrics">
+						<label><?php echo esc_html__( 'Sleep Quality', 'rebuildos' ); ?><input type="range" min="1" max="5" name="sleepQuality" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
+						<label><?php echo esc_html__( 'Stress Level', 'rebuildos' ); ?><input type="range" min="1" max="5" name="stressLevel" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
+						<label><?php echo esc_html__( 'Loneliness Level', 'rebuildos' ); ?><input type="range" min="1" max="5" name="lonelinessLevel" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
+						<label><?php echo esc_html__( 'Boredom Level', 'rebuildos' ); ?><input type="range" min="1" max="5" name="boredomLevel" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
+						<label><?php echo esc_html__( 'Energy Level', 'rebuildos' ); ?><input type="range" min="1" max="5" name="energyLevel" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
+						<label><?php echo esc_html__( 'Screen Risk', 'rebuildos' ); ?><input type="range" min="1" max="5" name="screenRisk" value="3" data-rebuildos-range required><span class="rebuildos-range-value" data-rebuildos-range-value>3</span></label>
+					</div>
 				</div>
-				<div class="rebuildos-grid">
-					<label><?php echo esc_html__( 'Highest Risk Window Today', 'rebuildos' ); ?>
-						<select name="riskWindow" required>
-							<option value="morning"><?php echo esc_html__( 'Morning', 'rebuildos' ); ?></option>
-							<option value="afternoon"><?php echo esc_html__( 'Afternoon', 'rebuildos' ); ?></option>
-							<option value="evening"><?php echo esc_html__( 'Evening', 'rebuildos' ); ?></option>
-							<option value="late night"><?php echo esc_html__( 'Late Night', 'rebuildos' ); ?></option>
-							<option value="custom"><?php echo esc_html__( 'Custom', 'rebuildos' ); ?></option>
-						</select>
-					</label>
-					<label><?php echo esc_html__( 'Today’s Boundary', 'rebuildos' ); ?><input type="text" name="boundary" required></label>
-					<label><?php echo esc_html__( 'Minimum Viable Day Action', 'rebuildos' ); ?><input type="text" name="minimumAction" required></label>
-					<label><?php echo esc_html__( 'Notes (optional)', 'rebuildos' ); ?><textarea name="notes" rows="3"></textarea></label>
+				<div class="rebuildos-step-card">
+					<h4><?php echo esc_html__( '2) Set your protection for today', 'rebuildos' ); ?></h4>
+					<div class="rebuildos-grid">
+						<label><?php echo esc_html__( 'Highest Risk Window Today', 'rebuildos' ); ?>
+							<select name="riskWindow" data-rebuildos-risk-window required>
+								<option value="morning"><?php echo esc_html__( 'Morning', 'rebuildos' ); ?></option>
+								<option value="afternoon"><?php echo esc_html__( 'Afternoon', 'rebuildos' ); ?></option>
+								<option value="evening"><?php echo esc_html__( 'Evening', 'rebuildos' ); ?></option>
+								<option value="late night"><?php echo esc_html__( 'Late Night', 'rebuildos' ); ?></option>
+								<option value="custom"><?php echo esc_html__( 'Custom', 'rebuildos' ); ?></option>
+							</select>
+						</label>
+						<label class="rebuildos-hidden" data-rebuildos-custom-window-wrap><?php echo esc_html__( 'Custom Risk Window', 'rebuildos' ); ?><input type="text" name="customRiskWindow" data-rebuildos-custom-window placeholder="e.g., 8:30pm after work"></label>
+						<label><?php echo esc_html__( 'Today’s Boundary', 'rebuildos' ); ?><input type="text" name="boundary" required placeholder="e.g., phone out of room by 10:00 pm"></label>
+						<label><?php echo esc_html__( 'Minimum Viable Day Action', 'rebuildos' ); ?><input type="text" name="minimumAction" required placeholder="e.g., 10-minute walk before evening"></label>
+						<label><?php echo esc_html__( 'Notes (optional)', 'rebuildos' ); ?><textarea name="notes" rows="3" placeholder="Any pressure points or context for today"></textarea></label>
+					</div>
 				</div>
 				<button type="submit" class="rebuildos-btn"><?php echo esc_html__( 'Save Today Check-In', 'rebuildos' ); ?></button>
 			</form>

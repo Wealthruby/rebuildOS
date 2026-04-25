@@ -118,12 +118,16 @@
 				return 'Phone out of room before your risk window.';
 			}
 			if (checkin.stressLevel >= 4) {
-				return 'Set one short break before your next pressure block.';
+				return 'Set one short recovery break before your next pressure block.';
 			}
 			if (checkin.lonelinessLevel >= 4) {
 				return 'Send one honest message before evening.';
 			}
 			return 'Protect your minimum action window with a clear start time.';
+		}
+
+		function minimumReminder(entry) {
+			return 'Minimum viable day reminder: ' + entry.minimumAction + '.';
 		}
 
 		function renderToday() {
@@ -135,7 +139,7 @@
 				todayResult.innerHTML = '<p class="rebuildos-panel__text">No check-in saved yet today.</p>';
 				return;
 			}
-			todayResult.innerHTML = '<h4>Today\'s Rebuild Snapshot</h4><p>Daily Risk Score: <strong>' + latest.dailyRiskLabel + '</strong></p><p>Suggested boundary: ' + latest.suggestedBoundary + '</p><p>Minimum action: ' + latest.minimumAction + '</p>';
+			todayResult.innerHTML = '<h4>Today\'s Rebuild Snapshot</h4><p><strong>Daily Risk Score: ' + latest.dailyRiskLabel + '</strong></p><p>Suggested boundary: ' + latest.suggestedBoundary + '</p><p>' + minimumReminder(latest) + '</p>';
 		}
 
 		function renderUrge() {
@@ -277,25 +281,70 @@
 
 		var todayForm = app.querySelector('[data-rebuildos-form="today"]');
 		if (todayForm) {
+			var ranges = todayForm.querySelectorAll('[data-rebuildos-range]');
+			ranges.forEach(function (range) {
+				var valueNode = range.parentNode.querySelector('[data-rebuildos-range-value]');
+				if (valueNode) {
+					valueNode.textContent = range.value;
+				}
+				range.addEventListener('input', function () {
+					if (valueNode) {
+						valueNode.textContent = range.value;
+					}
+				});
+			});
+
+			var riskWindowSelect = todayForm.querySelector('[data-rebuildos-risk-window]');
+			var customWrap = todayForm.querySelector('[data-rebuildos-custom-window-wrap]');
+			var customWindow = todayForm.querySelector('[data-rebuildos-custom-window]');
+
+			function updateCustomWindowVisibility() {
+				var show = riskWindowSelect && riskWindowSelect.value === 'custom';
+				if (customWrap) {
+					customWrap.classList.toggle('rebuildos-hidden', !show);
+				}
+				if (customWindow) {
+					customWindow.required = !!show;
+				}
+			}
+
+			if (riskWindowSelect) {
+				riskWindowSelect.addEventListener('change', updateCustomWindowVisibility);
+				updateCustomWindowVisibility();
+			}
+
 			todayForm.addEventListener('submit', function (event) {
 				event.preventDefault();
 				var values = getFormValues(todayForm);
-				var metrics = ['sleepQuality', 'stressLevel', 'lonelinessLevel', 'boredomLevel', 'energyLevel', 'screenRisk'];
-				var score = metrics.reduce(function (sum, key) { return sum + Number(values[key] || 0); }, 0) / metrics.length;
+				var riskWindow = values.riskWindow === 'custom' ? values.customRiskWindow : values.riskWindow;
+
+				var screenRisk = Number(values.screenRisk);
+				var stressLevel = Number(values.stressLevel);
+				var lonelinessLevel = Number(values.lonelinessLevel);
+				var boredomLevel = Number(values.boredomLevel);
+				var sleepRisk = 6 - Number(values.sleepQuality);
+				var energyRisk = 6 - Number(values.energyLevel);
+				var score = (screenRisk + stressLevel + lonelinessLevel + boredomLevel + sleepRisk + energyRisk) / 6;
+
 				var entry = makeRecord({
 					sleepQuality: Number(values.sleepQuality),
-					stressLevel: Number(values.stressLevel),
-					lonelinessLevel: Number(values.lonelinessLevel),
-					boredomLevel: Number(values.boredomLevel),
+					stressLevel: stressLevel,
+					lonelinessLevel: lonelinessLevel,
+					boredomLevel: boredomLevel,
 					energyLevel: Number(values.energyLevel),
-					screenRisk: Number(values.screenRisk),
-					riskWindow: values.riskWindow,
+					screenRisk: screenRisk,
+					riskWindow: riskWindow,
 					boundary: values.boundary,
 					minimumAction: values.minimumAction,
 					notes: values.notes || '',
-					dailyRiskScore: score,
+					dailyRiskScore: Number(score.toFixed(2)),
 					dailyRiskLabel: riskLabel(score),
-					suggestedBoundary: suggestBoundary(values)
+					suggestedBoundary: suggestBoundary({
+						screenRisk: screenRisk,
+						stressLevel: stressLevel,
+						lonelinessLevel: lonelinessLevel,
+						riskWindow: riskWindow
+					})
 				});
 				data.dailyCheckins.unshift(entry);
 				saveData(data);
