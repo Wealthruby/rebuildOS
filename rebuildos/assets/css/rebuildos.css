@@ -1,0 +1,123 @@
+.rebuildos-app {
+	--rebuildos-bg: #f5f7fb;
+	--rebuildos-surface: #ffffff;
+	--rebuildos-ink: #1f2937;
+	--rebuildos-muted: #6b7280;
+	--rebuildos-border: #dbe2ea;
+	--rebuildos-accent: #385b8a;
+	box-sizing: border-box;
+	max-width: 960px;
+	margin: 1.5rem auto;
+	padding: 1.25rem;
+	border: 1px solid var(--rebuildos-border);
+	border-radius: 16px;
+	background: linear-gradient(180deg, var(--rebuildos-bg) 0%, var(--rebuildos-surface) 100%);
+	color: var(--rebuildos-ink);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.rebuildos-app *,
+.rebuildos-app *::before,
+.rebuildos-app *::after {
+	box-sizing: inherit;
+}
+
+.rebuildos-app__header {
+	margin-bottom: 1rem;
+}
+
+.rebuildos-app__eyebrow {
+	margin: 0;
+	font-size: 0.75rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--rebuildos-muted);
+}
+
+.rebuildos-app__title {
+	margin: 0.3rem 0;
+	font-size: 1.5rem;
+	line-height: 1.2;
+}
+
+.rebuildos-app__subtitle {
+	margin: 0;
+	color: var(--rebuildos-muted);
+}
+
+.rebuildos-tabs {
+	margin-bottom: 1rem;
+}
+
+.rebuildos-tabs__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+	gap: 0.5rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.rebuildos-tabs__button {
+	width: 100%;
+	padding: 0.65rem 0.6rem;
+	border: 1px solid var(--rebuildos-border);
+	border-radius: 10px;
+	background: #fff;
+	color: var(--rebuildos-ink);
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.rebuildos-tabs__button:hover,
+.rebuildos-tabs__button:focus-visible {
+	border-color: var(--rebuildos-accent);
+	outline: none;
+}
+
+.rebuildos-tabs__button.is-active {
+	background: var(--rebuildos-accent);
+	border-color: var(--rebuildos-accent);
+	color: #fff;
+}
+
+.rebuildos-panel {
+	padding: 1rem;
+	border: 1px solid var(--rebuildos-border);
+	border-radius: 12px;
+	background: rgba(255, 255, 255, 0.8);
+	margin-bottom: 1rem;
+}
+
+.rebuildos-panel__title {
+	margin: 0 0 0.5rem;
+	font-size: 1.1rem;
+}
+
+.rebuildos-panel__text {
+	margin: 0;
+	color: var(--rebuildos-muted);
+}
+
+.rebuildos-app__footer {
+	padding-top: 0.5rem;
+	border-top: 1px solid var(--rebuildos-border);
+}
+
+.rebuildos-app__disclaimer {
+	margin: 0;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	color: #374151;
+}
+
+@media (max-width: 640px) {
+	.rebuildos-app {
+		padding: 1rem;
+	}
+
+	.rebuildos-app__title {
+		font-size: 1.25rem;
+	}
+}
