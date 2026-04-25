@@ -5,6 +5,7 @@
 	--rebuildos-muted: #6b7280;
 	--rebuildos-border: #dbe2ea;
 	--rebuildos-accent: #385b8a;
+	--rebuildos-danger: #9b2c2c;
 	box-sizing: border-box;
 	max-width: 960px;
 	margin: 1.5rem auto;
@@ -40,9 +41,14 @@
 	line-height: 1.2;
 }
 
-.rebuildos-app__subtitle {
-	margin: 0;
+.rebuildos-app__subtitle,
+.rebuildos-app__privacy-note {
+	margin: 0.25rem 0 0;
 	color: var(--rebuildos-muted);
+}
+
+.rebuildos-app__privacy-note {
+	font-size: 0.95rem;
 }
 
 .rebuildos-tabs {
@@ -100,6 +106,86 @@
 	color: var(--rebuildos-muted);
 }
 
+.rebuildos-form {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.rebuildos-form label {
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.rebuildos-form textarea {
+	width: 100%;
+	min-height: 84px;
+	padding: 0.65rem;
+	border: 1px solid var(--rebuildos-border);
+	border-radius: 8px;
+	font: inherit;
+	resize: vertical;
+}
+
+.rebuildos-btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.6rem 0.8rem;
+	border-radius: 8px;
+	border: 1px solid var(--rebuildos-accent);
+	background: var(--rebuildos-accent);
+	color: #fff;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.rebuildos-btn--secondary {
+	border-color: var(--rebuildos-border);
+	background: #fff;
+	color: var(--rebuildos-ink);
+}
+
+.rebuildos-btn--danger {
+	border-color: var(--rebuildos-danger);
+	background: var(--rebuildos-danger);
+}
+
+.rebuildos-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+.rebuildos-actions input[type='file'] {
+	position: absolute;
+	left: -9999px;
+	opacity: 0;
+}
+
+.rebuildos-stats {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 0.5rem;
+}
+
+.rebuildos-stats__item {
+	padding: 0.5rem 0.6rem;
+	border: 1px solid var(--rebuildos-border);
+	border-radius: 8px;
+	background: #fff;
+}
+
+.rebuildos-feedback {
+	margin: 0 0 1rem;
+	color: var(--rebuildos-muted);
+	min-height: 1.4em;
+}
+
 .rebuildos-app__footer {
 	padding-top: 0.5rem;
 	border-top: 1px solid var(--rebuildos-border);
@@ -119,5 +205,9 @@
 
 	.rebuildos-app__title {
 		font-size: 1.25rem;
+	}
+
+	.rebuildos-actions {
+		flex-direction: column;
 	}
 }
