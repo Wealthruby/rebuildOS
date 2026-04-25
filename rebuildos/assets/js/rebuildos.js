@@ -98,12 +98,70 @@
 		var lastSavedNode = app.querySelector('[data-rebuildos-last-saved]');
 		var timerDisplay = app.querySelector('[data-rebuildos-timer]');
 		var timerInterval = null;
+		var migrateButton = app.querySelector('[data-rebuildos-migrate]');
+		var config = window.rebuildosConfig || {};
+		var isLoggedIn = !!config.isLoggedIn;
 
 		function setFeedback(message, tone) {
 			if (feedback) {
 				feedback.textContent = message;
 				feedback.setAttribute('data-tone', tone || 'success');
 			}
+		}
+
+		function postToAccount(action, payload) {
+			if (!isLoggedIn || !config.ajaxUrl || !config.nonce) {
+				return Promise.resolve(null);
+			}
+
+			var body = new URLSearchParams();
+			body.append('action', action);
+			body.append('nonce', config.nonce);
+
+			if (payload && payload.data) {
+				body.append('data', payload.data);
+			}
+
+			return fetch(config.ajaxUrl, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				body: body.toString()
+			}).then(function (response) {
+				return response.json();
+			});
+		}
+
+		function syncToAccount() {
+			if (!isLoggedIn) {
+				return Promise.resolve();
+			}
+
+			return postToAccount('rebuildos_save_user_data', {
+				data: JSON.stringify(data)
+			}).catch(function () {
+				setFeedback('Saved locally. Account sync will retry on next action.', 'warn');
+			});
+		}
+
+		function loadFromAccount() {
+			if (!isLoggedIn) {
+				return Promise.resolve();
+			}
+
+			return postToAccount('rebuildos_load_user_data', {}).then(function (response) {
+				if (!response || !response.success || !response.data || !response.data.data) {
+					return;
+				}
+					data = normalizeData(response.data.data);
+					saveData(data);
+					renderAll();
+					setFeedback('Loaded your account data.', 'success');
+			}).catch(function () {
+				setFeedback('Using local data. Account data could not be loaded right now.', 'warn');
+			});
 		}
 
 		function riskLabel(score) {
@@ -401,6 +459,7 @@
 				});
 				data.dailyCheckins.unshift(entry);
 				saveData(data);
+				syncToAccount();
 				renderAll();
 				setFeedback('Today check-in saved privately in this browser.');
 			});
@@ -424,6 +483,7 @@
 					notes: values.notes || ''
 				}));
 				saveData(data);
+				syncToAccount();
 				renderAll();
 				urgeForm.reset();
 				setFeedback('Urge event logged privately.');
@@ -475,6 +535,7 @@
 				data.closedLoopActions.unshift(resetRecord);
 				data.urgeLogs.unshift(resetRecord);
 				saveData(data);
+				syncToAccount();
 				resetResult.innerHTML = '<h4>Reset Logged</h4><p>You moved through a high-risk moment. Record the pattern, then return to the next clean action.</p>';
 				renderAll();
 				setFeedback('Emergency reset outcome saved privately.');
@@ -502,6 +563,7 @@
 					systemAdjustment: systemAdjustment
 				}));
 				saveData(data);
+				syncToAccount();
 				renderAll();
 				autopsyForm.reset();
 				setFeedback('Relapse autopsy saved. This is pattern work, not self-judgment.');
@@ -514,9 +576,10 @@
 				event.preventDefault();
 				var values = getFormValues(controlForm);
 				values.controlScore = Math.round((Object.keys(values).filter(function (k) { return values[k]; }).length / 5) * 100);
-				data.controlAudits.unshift(makeRecord(values));
-				saveData(data);
-				renderAll();
+					data.controlAudits.unshift(makeRecord(values));
+					saveData(data);
+					syncToAccount();
+					renderAll();
 				controlForm.reset();
 				setFeedback('Control audit saved.');
 			});
@@ -526,9 +589,10 @@
 		if (weeklyForm) {
 			weeklyForm.addEventListener('submit', function (event) {
 				event.preventDefault();
-				data.weeklyReviews.unshift(makeRecord(getFormValues(weeklyForm)));
-				saveData(data);
-				renderAll();
+					data.weeklyReviews.unshift(makeRecord(getFormValues(weeklyForm)));
+					saveData(data);
+					syncToAccount();
+					renderAll();
 				weeklyForm.reset();
 				setFeedback('Weekly review saved privately.');
 			});
@@ -591,6 +655,7 @@
 						}
 						data = imported;
 						saveData(data);
+						syncToAccount();
 						renderAll();
 						setFeedback('Import complete.');
 					} catch (error) {
@@ -599,6 +664,23 @@
 					importInput.value = '';
 				};
 				reader.readAsText(file);
+			});
+		}
+
+		if (migrateButton && isLoggedIn) {
+			migrateButton.addEventListener('click', function () {
+				postToAccount('rebuildos_migrate_guest_data', {
+					data: JSON.stringify(data)
+				}).then(function (response) {
+					if (response && response.success) {
+						setFeedback('Local data migrated to your account.', 'success');
+						return;
+					}
+
+					setFeedback('Migration failed. Please try again.', 'error');
+				}).catch(function () {
+					setFeedback('Migration failed. Please try again.', 'error');
+				});
 			});
 		}
 
@@ -611,11 +693,13 @@
 				}
 				data = cloneEmptyData();
 				saveData(data);
+				syncToAccount();
 				renderAll();
 				setFeedback('Local browser data cleared.');
 			});
 		}
 
 		renderAll();
+		loadFromAccount();
 	});
 })();

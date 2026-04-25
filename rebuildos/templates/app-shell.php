@@ -243,13 +243,16 @@ if ( ! $export_enabled ) {
 		<section class="rebuildos-panel" data-rebuildos-panel="export" hidden>
 			<h3 class="rebuildos-panel__title"><?php echo esc_html__( 'Export & Privacy Controls', 'rebuildos' ); ?></h3>
 			<p class="rebuildos-panel__text"><?php echo esc_html__( 'Guest data is stored only in this browser unless you export it.', 'rebuildos' ); ?></p>
-			<div class="rebuildos-actions">
-				<button type="button" class="rebuildos-btn" data-rebuildos-export-json><?php echo esc_html__( 'Export JSON', 'rebuildos' ); ?></button>
-				<button type="button" class="rebuildos-btn rebuildos-btn--secondary" data-rebuildos-export-csv><?php echo esc_html__( 'Export CSV', 'rebuildos' ); ?></button>
-				<label class="rebuildos-btn rebuildos-btn--secondary" for="rebuildos-import-file"><?php echo esc_html__( 'Import JSON', 'rebuildos' ); ?></label>
-				<input id="rebuildos-import-file" type="file" accept="application/json" data-rebuildos-import-file />
-				<button type="button" class="rebuildos-btn rebuildos-btn--danger" data-rebuildos-clear><?php echo esc_html__( 'Clear Local Data', 'rebuildos' ); ?></button>
-			</div>
+				<div class="rebuildos-actions">
+					<button type="button" class="rebuildos-btn" data-rebuildos-export-json><?php echo esc_html__( 'Export JSON', 'rebuildos' ); ?></button>
+					<button type="button" class="rebuildos-btn rebuildos-btn--secondary" data-rebuildos-export-csv><?php echo esc_html__( 'Export CSV', 'rebuildos' ); ?></button>
+					<label class="rebuildos-btn rebuildos-btn--secondary" for="rebuildos-import-file"><?php echo esc_html__( 'Import JSON', 'rebuildos' ); ?></label>
+					<input id="rebuildos-import-file" type="file" accept="application/json" data-rebuildos-import-file />
+					<?php if ( is_user_logged_in() ) : ?>
+						<button type="button" class="rebuildos-btn rebuildos-btn--secondary" data-rebuildos-migrate><?php echo esc_html__( 'Migrate Local Data to Account', 'rebuildos' ); ?></button>
+					<?php endif; ?>
+					<button type="button" class="rebuildos-btn rebuildos-btn--danger" data-rebuildos-clear><?php echo esc_html__( 'Clear Local Data', 'rebuildos' ); ?></button>
+				</div>
 			<div class="rebuildos-cards" data-rebuildos-export-summary></div>
 		</section>
 		<?php endif; ?>
